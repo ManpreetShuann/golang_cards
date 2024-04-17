@@ -1,2 +1,2 @@
-# golang_cards
+# Golang Cards
 Practice project for Golang called Cards
