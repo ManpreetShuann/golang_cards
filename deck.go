@@ -40,3 +40,11 @@ func (d deck) print() {
 		fmt.Println(card)
 	}
 }
+
+func (d deck) count() {
+	count := 0
+	for range d {
+		count += 1
+	}
+	fmt.Println(count)
+}
