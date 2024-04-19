@@ -2,10 +2,10 @@ package main
 
 import "fmt"
 
-// Create a new type of deck which is a slice of strings
+// Creates a new type of deck which is a slice of strings.
 type deck []string
 
-// Creates and returns a New deck of cards
+// Creates and returns a New deck of cards.
 func newDeck() deck {
 	cards := deck{}
 	cardsSuits := []string{"Spades", "Hearts", "Diamonds", "Clubs"}
@@ -33,18 +33,26 @@ func newDeck() deck {
 	return cards
 }
 
-// reciever function: We added a reciever(d deck).
-// which means any variable of type deck now gets access to print method, Kinda similar to self in python.
+// This is a reciever function to print all cards in the deck.
+// We added a reciever(d deck) which means any variable of type deck now gets access to print method, Kinda similar to self in python.
 func (d deck) print() {
-	for _, card := range d {
-		fmt.Println(card)
+	for i, card := range d {
+		fmt.Println(i, card)
 	}
 }
 
+// A reciever function count, to count the number of cards in the deck.
 func (d deck) count() {
 	count := 0
 	for range d {
 		count += 1
 	}
 	fmt.Println(count)
+}
+
+// A parameterized function to deal a hand of cards
+func deal(d deck, handSize int) (deck, deck) {
+	hand := d[:handSize]
+	deck := d[handSize:]
+	return hand, deck
 }
