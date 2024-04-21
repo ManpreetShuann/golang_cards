@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"math/rand"
 	"os"
 	"strings"
 )
@@ -47,12 +48,12 @@ func (d deck) print() {
 }
 
 // A reciever function count, to count the number of cards in the deck.
-func (d deck) count() {
-	count := 0
+func (d deck) count() int {
+	c := 0
 	for range d {
-		count += 1
+		c += 1
 	}
-	fmt.Println(count)
+	return c
 }
 
 // A parameterized function to deal a hand of cards
@@ -81,5 +82,19 @@ func newDeckFromFile(filename string) deck {
 	}
 	s := string(bs)
 	d := strings.Split(s, ",")
+	return d
+}
+
+// Shuffles a deck
+func (d deck) shuffle() deck {
+	for i := len(d) - 1; i > 0; i-- {
+		j := rand.Intn(i + 1)
+		d[i], d[j] = d[j], d[i]
+	}
+	// another way of doing it
+	// for i := range d {
+	// 	j := rand.Intn(len(d) - 1)
+	// 	d[i], d[j] = d[j], d[i]
+	// }
 	return d
 }
