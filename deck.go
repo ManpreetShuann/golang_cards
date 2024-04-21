@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"os"
+	"strings"
+)
 
 // Creates a new type of deck which is a slice of strings.
 type deck []string
@@ -55,4 +60,26 @@ func deal(d deck, handSize int) (deck, deck) {
 	hand := d[:handSize]
 	deck := d[handSize:]
 	return hand, deck
+}
+
+// A function to convert a deck to a string
+func (d deck) toString() string {
+	deckString := strings.Join(d, ",")
+	return deckString
+}
+
+// Save a deck to file
+func (d deck) saveToFile(filename string) error {
+	return os.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+// Creates a new deck from a file
+func newDeckFromFile(filename string) deck {
+	bs, err := os.ReadFile(filename)
+	if err != nil {
+		log.Fatalf("Error: Couldn't open file %s: %v", filename, err)
+	}
+	s := string(bs)
+	d := strings.Split(s, ",")
+	return d
 }
